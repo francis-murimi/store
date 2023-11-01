@@ -3,6 +3,7 @@ from . import views
 
 app_name = 'products'
 urlpatterns = [
+    path('',views.index,name='index'),
     path('list-category/',views.list_categories,name='list_categories'),
     path('add-category/',views.add_category,name='add_category'),
     path('update-category/<int:category_id>/', views.update_category, name='update_category'),

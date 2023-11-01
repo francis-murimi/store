@@ -2,8 +2,11 @@ from django.shortcuts import render,redirect
 from .forms import ExtendedUserCreationForm, LoginForm
 from django.template import loader
 from django.contrib.auth import authenticate,login,logout
-from django.http import HttpResponse, Http404,HttpResponseRedirect
+from django.http import HttpResponse
 from .models import UserProfile
+#from django.contrib.auth.decorators import login_required
+
+
 def user_register(request):
     template = loader.get_template('profiles/user_register.html')
     if request.method == 'POST':
@@ -23,8 +26,7 @@ def user_register(request):
                 last_name=form.cleaned_data['last_name'],
                 phone_number=form.cleaned_data['phone_number']
             )
-            #return redirect('home')
-            return HttpResponse('Registered and Logged in')
+            return redirect('products:list_products')
     else:
         form = ExtendedUserCreationForm()
     
@@ -41,8 +43,7 @@ def log_in(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    #return redirect ('home')
-                    return HttpResponse('Logged In')
+                    return redirect('products:list_products')
                 
                 else:
                     return HttpResponse('Disabled account')
