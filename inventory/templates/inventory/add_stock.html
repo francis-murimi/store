@@ -1,0 +1,26 @@
+{% extends "products/base.html" %}
+{% block title %}
+    Add Stock
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Add Stock</h2>
+    <form method="post" class="form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-group">
+            {{ form.product_supplier.label_tag }}
+            {{ form.product_supplier }}
+        </div>
+        <div class="form-group">
+            {{ form.product_quantity.label_tag }}
+            {{ form.product_quantity }}
+        </div>
+        <div class="form-group">
+            {{ form.product_bought_at.label_tag }}
+            {{ form.product_bought_at }}
+        </div>
+        <button type="submit" class="btn btn-primary">Add Stock</button>
+    </form>
+</div>
+{% endblock %}

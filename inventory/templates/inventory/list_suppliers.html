@@ -1,0 +1,33 @@
+{% extends "products/base.html" %}
+{% block title %}
+    Suppliers
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Suppliers List</h2>
+    <div>
+        <a href="{% url 'inventory:add_supplier'%}" class="btn btn-primary">Add Supplier</a>
+    <div>
+    <br>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Supplier Name</th>
+                <th>Supplier Description</th>
+                <th> Update </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supplier in suppliers %}
+                <tr>
+                    <td>{{ supplier.supplier_name }}</td>
+                    <td>{{ supplier.supplier_description }} <br>
+                        <a href="{% url 'inventory:update_supplier' supplier.id %}" class="btn btn-primary">Update</a>
+                    </td>
+                    <td><a href="{% url 'inventory:delete_supplier' supplier.id %}" class="btn btn-danger">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock%}

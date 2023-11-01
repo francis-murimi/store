@@ -40,3 +40,30 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         self.product_slug = slugify(self.product_name)
         super(Product, self).save(*args, **kwargs)
+    
+    def get_total_stock_quantity(self):
+        total_quantity = 0
+
+        # Calculate the total stock quantity for the product
+        product_stocks = self.stock.all()  # Assuming you have related_name='stock' in ProductStock
+        for stock in product_stocks:
+            total_quantity += stock.product_quantity
+
+        return total_quantity
+
+    def get_remaining_stock(self):
+        total_quantity = self.get_total_stock_quantity()
+        products_issued_sum = self.stock.aggregate(Sum('products_issued'))['products_issued__sum']
+        remaining_stock = total_quantity - products_issued_sum
+
+        return remaining_stock
+    
+    def calculate_total_stock_value(self):
+        total_stock_value = 0
+
+        for product_stock in self.stock.all():
+            remaining_stock = product_stock.product_quantity - product_stock.products_issued
+            stock_value = remaining_stock * product_stock.product_bought_at
+            total_stock_value += stock_value
+
+        return total_stock_value

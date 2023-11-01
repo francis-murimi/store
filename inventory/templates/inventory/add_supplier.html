@@ -1,22 +1,22 @@
 {% extends "products/base.html" %}
 {% block title %}
-    Update Category
+    Add Supplier
 {% endblock %}
 {% block content %}
 <div class="container">
-    <h2>Update Category</h2>
+    <h2>Add Supplier</h2>
     <form method="post" class="form">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div class="form-group">
-            {{ form.category_name.label_tag }}
-            {{ form.category_name }}
+            {{ form.supplier_name.label_tag }}
+            {{ form.supplier_name }}
         </div>
         <div class="form-group">
-            {{ form.category_description.label_tag }}
-            {{ form.category_description }}
+            {{ form.supplier_description.label_tag }}
+            {{ form.supplier_description }}
         </div>
-        <button type="submit" class="btn btn-primary">Update Category</button>
+        <button type="submit" class="btn btn-primary">Add Supplier</button>
     </form>
 </div>
 {% endblock %}

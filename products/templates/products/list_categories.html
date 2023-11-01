@@ -1,43 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categories</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container">
-        <h2>List Categories</h2>
-        <div>
-            <a href="{% url 'products:add_category'%}" class="btn btn-primary">Add Category</a>
-        <div>
-        <br>
-        <table class="table table-bordered">
-            <thead>
+{% extends "products/base.html" %}
+{% block title %}
+    Categories
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>List Categories</h2>
+    <div>
+        <a href="{% url 'products:add_category'%}" class="btn btn-primary">Add Category</a>
+    <div>
+    <br>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Category Name</th>
+                <th>Category Description</th>
+                <th> Update </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
                 <tr>
-                    <th>Category Name</th>
-                    <th>Category Description</th>
-                    <th> Update </th>
+                    <td>{{ category.category_name }}</td>
+                    <td>{{ category.category_description }} <br>
+                        <a href="{% url 'products:update_category' category.id %}" class="btn btn-primary">Update</a>
+                    </td>
+                    <td><a href="{% url 'products:delete_category' category.id %}" class="btn btn-danger">Delete</a></td>
                 </tr>
-            </thead>
-            <tbody>
-                {% for category in categories %}
-                    <tr>
-                        <td>{{ category.category_name }}</td>
-                        <td>{{ category.category_description }} <br>
-                            <a href="{% url 'products:update_category' category.id %}" class="btn btn-primary">Update</a>
-                        </td>
-                        <td><a href="{% url 'products:delete_category' category.id %}" class="btn btn-danger">Delete</a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <!-- Include Bootstrap JS and jQuery if needed -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
