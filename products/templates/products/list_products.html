@@ -22,7 +22,10 @@
         <tbody>
             {% for product in products %}
                 <tr>
-                    <td>{{ product.product_name }}</td>
+                    <td>
+                        {{ product.product_name }}<br>
+                        <a href="{% url 'products:product_detail' product.id %}" class="text-decoration-none">View Details</a>
+                    </td>
                     <td>
                         {{product.get_remaining_stock}}<br>
                         <a href="{% url 'inventory:add_product_stock' product.id %}" class="text-decoration-none">Add Stock</a>

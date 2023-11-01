@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect,get_object_or_404
+
+from inventory.models import ProductStock
 from .models import Category, Product
 from .forms import CategoryForm, ProductForm  # Create a form for adding categories
 
@@ -62,3 +64,9 @@ def delete_product(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
     return redirect('products:list_products')
+
+def product_detail(request,product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    stocks = ProductStock.objects.filter(product=product,stock_finished=False)
+    return render(request, 'products/product_detail.html', {'product': product,'stocks':stocks})
+    

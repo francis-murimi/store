@@ -1,0 +1,55 @@
+{% extends "products/base.html" %}
+{% block title %}
+    {{product.product_name}}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>{{ product.product_name }}</h2>
+            <p>
+                <strong>Category:</strong> {{ product.product_category }}
+            </p>
+            <p>
+                <strong>Product Code:</strong> {{ product.product_code }}
+            </p>
+            <p>
+                <strong>Remaining Stock:</strong> {{ product.get_remaining_stock }}
+            </p>
+            <p>
+                <strong>Stock Value:</strong> {{ product.calculate_total_stock_value }}
+            </p>
+        </div>
+        <div class="col-md-6">
+            <p>{{ product.product_description }}</p>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Stock Date</th>
+                    <th>Product Supplier</th>
+                    <th>Product Quantity</th>
+                    <th>Products Issued</th>
+                    <th>Product Bought At</th>
+                    <th>Stock Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock.date_created }}</td>
+                    <td>{{ stock.product_supplier }}</td>
+                    <td>{{ stock.product_quantity }}</td>
+                    <td>{{ stock.products_issued }}</td>
+                    <td>{{ stock.product_bought_at }}</td>
+                    <td>{{ stock.product_stock_amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    <div>
+</div>
+{% endblock %}
